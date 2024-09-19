@@ -1,8 +1,15 @@
 defmodule PentoWeb.WrongLive do
   use PentoWeb, :live_view
+  alias Pento.Accounts
 
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, score: 0, message: "Make a guess", correct_number: :rand.uniform(10))}
+  def mount(_params, session, socket) do
+    {:ok,
+     assign(socket,
+       score: 0,
+       message: "Make a guess",
+       correct_number: :rand.uniform(10),
+       session_id: session["live_socket_id"]
+     )}
   end
 
   def handle_event("guess", %{"number" => guess}, socket) do
